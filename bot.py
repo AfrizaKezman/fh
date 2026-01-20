@@ -58,8 +58,13 @@ try:
     # Setup header if needed
     if sheet.row_values(1) == []:
         sheet.append_row(['Tanggal', 'Nama', 'Jenis Voucher', 'Jumlah (Dollar)'])
+    logger.info("Google Sheets connected successfully!")
+except FileNotFoundError:
+    logger.error("credentials.json not found. Please set GOOGLE_APPLICATION_CREDENTIALS_JSON environment variable.")
+    sheet = None
 except Exception as e:
     logger.error(f"Error setting up Google Sheets: {e}")
+    logger.info("Bot will continue, but data won't be saved to sheets.")
     sheet = None
 
 
